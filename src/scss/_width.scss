@@ -1,0 +1,19 @@
+$width-class-slug: w !default;
+
+$width-unit : '%' !default;
+$width-unit-slug : p;
+
+@for $i from 1 through 200 {
+	.#{$width-class-slug}-#{$i}-#{$width-unit-slug} {
+		width: #{$i}#{$width-unit};
+	}
+}
+
+$width-unit-px : 'px' !default;
+$width-unit-slug : px;
+
+@for $i from 1 through 200 {
+	.#{$width-class-slug}-#{$i}-#{$width-unit-slug} {
+		width: #{$i}#{$width-unit-px};
+	}
+}

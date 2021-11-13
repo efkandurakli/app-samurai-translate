@@ -6,7 +6,8 @@
       "paths": {
         "@images/*": ["./assets/images/*"],
         "@components/*": ["./components/*"],
-        "@styles/*": ["./scss/*"]
+        "@styles/*": ["./scss/*"],
+        "@svgs/*": ["./assets/svgs/*"]
        }
     },
     "exclude": ["node_modules", "**/node_modules/*", "build"]

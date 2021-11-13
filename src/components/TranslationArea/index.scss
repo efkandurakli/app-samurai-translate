@@ -1,0 +1,27 @@
+.translation-area {
+    min-height: 225px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+    border-radius: 8px;
+    background-color: white;
+    margin: -35px auto 0 auto;
+    width: 60%;
+
+    .tabs {
+        height: 50px;
+        display: flex;
+        white-space: nowrap;
+        font-family: "Roboto",arial,sans-serif;
+        font-size: 20px;
+        color: #5f6368;
+
+        &__source-languages {
+            display: flex;
+            width: 48%;
+        }
+
+        &__target-languages {
+            display: flex;
+            width: 52%;
+        }
+    }
+}

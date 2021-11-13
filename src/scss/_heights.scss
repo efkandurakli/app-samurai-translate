@@ -12,7 +12,7 @@ $height-unit-slug : p;
 $height-px-unit : 'px' !default;
 $height-px-unit-slug : px;
 
-@for $i from 1 through 100 {
+@for $i from 1 through 200 {
 	.#{$height-class-slug}-#{$i}-#{$height-px-unit-slug} {
 		height: #{$i}#{$height-px-unit};
 	}

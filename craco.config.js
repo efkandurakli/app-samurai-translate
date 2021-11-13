@@ -5,6 +5,7 @@ module.exports = {
       "@components": path.resolve(__dirname, "src/components/"),
       "@images": path.resolve(__dirname, "src/assets/images/"),
       "@styles": path.resolve(__dirname, "src/scss/"),
+      "@svgs": path.resolve(__dirname, "src/assets/svgs/"),
     },
   },
 };
