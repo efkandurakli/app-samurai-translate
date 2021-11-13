@@ -5,6 +5,7 @@
     background-color: white;
     margin: -35px auto 0 auto;
     width: 60%;
+    resize: both;
 
     .tabs {
         height: 50px;
@@ -17,11 +18,43 @@
         &__source-languages {
             display: flex;
             width: 48%;
+
+            .language-title {
+                &:hover {
+                    background-color: rgba($color: #f2f2f0, $alpha: 0.7);
+                }
+            }
         }
 
         &__target-languages {
             display: flex;
             width: 52%;
+
+            .language-title {
+                &:hover {
+                    background-color: rgba($color: #f2f2f0, $alpha: 0.7);
+                }
+            }
+        }
+    }
+}
+
+.text-area {
+    resize: none !important;
+    border: 0;
+    overflow: auto;
+    padding: 25px;
+    font-size: 24px;
+    line-height: 32px;
+
+    &:focus {
+        outline: none;
+    }
+
+    .clear-icon {
+        &:hover {
+            background-color: rgba($color: #f2f2f0, $alpha: 0.7);
+            border-radius: 50%;
         }
     }
 }
