@@ -1,0 +1,19 @@
+$height-class-slug: h !default;
+
+$height-unit : '%' !default;
+$height-unit-slug : p;
+
+@for $i from 1 through 100 {
+	.#{$height-class-slug}-#{$i}-#{$height-unit-slug} {
+		height: #{$i}#{$height-unit};
+	}
+}
+
+$height-px-unit : 'px' !default;
+$height-px-unit-slug : px;
+
+@for $i from 1 through 100 {
+	.#{$height-class-slug}-#{$i}-#{$height-px-unit-slug} {
+		height: #{$i}#{$height-px-unit};
+	}
+}

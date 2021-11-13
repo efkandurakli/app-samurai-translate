@@ -1,0 +1,7 @@
+$class-slug: fs !default;
+
+@for $i from 9 through 64 {
+	.#{$class-slug}-#{$i} {
+		font-size: calc(#{$i} * var(--font-base) / var(--font-coefficient));
+	}
+}

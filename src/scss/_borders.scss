@@ -1,0 +1,93 @@
+@import 'vars';
+
+$border-class-slug: b !default;
+$border-color-class-slug: bc !default;
+$iterator-count: 5;
+$default-style: solid !default;
+$unit: px !default;
+
+// all ways
+@for $i from 0 through $iterator-count {
+	.#{$border-class-slug}-#{$i} {
+		border-width: #{$i}$unit;
+		border-style: #{$default-style};
+	}
+}
+
+// horizontal
+$direction: h;
+
+@for $i from 0 through $iterator-count {
+	.#{$border-class-slug}-#{$direction}-#{$i} {
+		border-left-width: #{$i}$unit;
+		border-left-style: #{$default-style};
+		border-right-width: #{$i}$unit;
+		border-right-style: #{$default-style};
+	}
+}
+
+// vertical
+$direction: v;
+
+@for $i from 0 through $iterator-count {
+	.#{$border-class-slug}-#{$direction}-#{$i} {
+		border-top-width: #{$i}$unit;
+		border-top-style: #{$default-style};
+		border-bottom-width: #{$i}$unit;
+		border-bottom-style: #{$default-style};
+	}
+}
+
+// border-left
+$direction: l;
+
+@for $i from 0 through $iterator-count {
+	.#{$border-class-slug}-#{$direction}-#{$i} {
+		border-left-width: #{$i}$unit;
+		border-left-style: #{$default-style};
+	}
+}
+
+// border-right
+$direction: r;
+
+@for $i from 0 through $iterator-count {
+	.#{$border-class-slug}-#{$direction}-#{$i} {
+		border-right-width: #{$i}$unit;
+		border-right-style: #{$default-style};
+	}
+}
+
+// border-top
+$direction: t;
+
+@for $i from 0 through $iterator-count {
+	.#{$border-class-slug}-#{$direction}-#{$i} {
+		border-top-width: #{$i}$unit;
+		border-top-style: #{$default-style};
+	}
+}
+
+// border-bottom
+$direction: b;
+
+@for $i from 0 through $iterator-count {
+	.#{$border-class-slug}-#{$direction}-#{$i} {
+		border-bottom-width: #{$i}$unit;
+		border-bottom-style: #{$default-style};
+	}
+}
+
+// border-colors
+
+.#{$border-color-class-slug}-white {
+	border-color: $white;
+}
+
+.#{$border-color-class-slug}-alto {
+	border-color: $alto;
+}
+
+.#{$border-color-class-slug}-alabaster {
+	border-color: $alabaster;
+}
