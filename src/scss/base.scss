@@ -1,8 +1,106 @@
-@import 'vars';
-@import 'background-clors';
-@import 'borders';
-@import 'colors';
-@import 'fontsizes';
-@import 'heights';
-@import 'margins';
-@import 'paddings';
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+@import "vars";
+@import "breakpoints";
+
+@include hd() {
+  :root {
+    --font-size: 14px;
+    --padding-base: 5px;
+    --margin-base: 5px;
+    --font-base: 1rem;
+    --font-coefficient: 14;
+  }
+}
+
+@include lg() {
+  :root {
+    --font-size: 14px;
+    --padding-base: 5px;
+    --margin-base: 5px;
+    --font-base: 1rem;
+    --font-coefficient: 14;
+  }
+}
+
+@include md() {
+  :root {
+    --font-size: 13px;
+    --padding-base: 3.75px;
+    --margin-base: 3.75px;
+    --font-base: 1rem;
+    --font-coefficient: 14;
+  }
+}
+
+@include sm() {
+  :root {
+    --font-size: 12px;
+    --padding-base: 2.85px;
+    --margin-base: 2.85px;
+    --font-base: 1rem;
+    --font-coefficient: 15;
+  }
+}
+
+@include xs() {
+  :root {
+    --font-size: 11px;
+    --padding-base: 2.25px;
+    --margin-base: 2.25px;
+    --font-base: 1rem;
+    --font-coefficient: 14;
+  }
+}
+
+@include xxs() {
+  :root {
+    --font-size: 11px;
+    --padding-base: 2.25px;
+    --margin-base: 2.25px;
+    --font-base: 1rem;
+    --font-coefficient: 14;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+
+  @media (prefers-reduced-motion: reduce) {
+    & {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  &,
+  &::after,
+  &::before {
+    box-sizing: border-box;
+  }
+}
+
+html,
+body {
+  font-size: var(--font-size);
+  font-family: $font-family-default;
+  line-height: $line-height-default;
+  background: $white;
+  font-display: swap;
+}
+
+@import "vars";
+@import "background-colors";
+@import "borders";
+@import "breakpoints";
+@import "colors";
+@import "fontsizes";
+@import "heights";
+@import "margins";
+@import "paddings";

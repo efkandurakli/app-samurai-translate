@@ -3,9 +3,9 @@ import "./index.scss";
 
 const Header = () => {
   return (
-    <header className="header">
+    <header className="header b-b-1 bc-alto">
       <img src={logo} height="100%" width="12%"/>
-      <p>Translate</p>
+      <p className="fs-30 color-shuttle-gray p-l-2">Translate</p>
     </header>
   );
 };

@@ -1,0 +1,80 @@
+$breakpoints: (
+  // xxs : up to 480px
+  "xxs": "all and (max-width:480px)",
+  // xs : up to 768px
+  "xs": "all and (min-width:481px) and (max-width:768px)",
+  // sm : up to 1024px
+  "sm": "all and (min-width:769px) and (max-width:1024px)",
+  // md : up to 1280px
+  "md": "all and (min-width:1025px) and (max-width:1280px)",
+  // lg : up to 1140px
+  "lg": "all and (min-width:1281px) and (max-width:1440px)",
+  // hd : 1440+
+  "hd": "all and (min-width:1441px)"
+);
+
+@mixin xxs() {
+	$query_xxs: map-get(
+		$map: $breakpoints,
+		$key: 'xxs'
+	);
+
+	@media #{$query_xxs} {
+		@content;
+	}
+}
+
+@mixin xs() {
+	$query_xs: map-get(
+		$map: $breakpoints,
+		$key: 'xs'
+	);
+
+	@media #{$query_xs} {
+		@content;
+	}
+}
+
+@mixin sm() {
+	$query_sm: map-get(
+		$map: $breakpoints,
+		$key: 'sm'
+	);
+
+	@media #{$query_sm} {
+		@content;
+	}
+}
+
+@mixin md() {
+	$query_md: map-get(
+		$map: $breakpoints,
+		$key: 'md'
+	);
+
+	@media #{$query_md} {
+		@content;
+	}
+}
+
+@mixin lg() {
+	$query_lg: map-get(
+		$map: $breakpoints,
+		$key: 'lg'
+	);
+
+	@media #{$query_lg} {
+		@content;
+	}
+}
+
+@mixin hd() {
+	$query_hd: map-get(
+		$map: $breakpoints,
+		$key: 'hd'
+	);
+
+	@media #{$query_hd} {
+		@content;
+	}
+}
