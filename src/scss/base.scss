@@ -63,6 +63,27 @@
   }
 }
 
+@mixin createContainer($breakpoints, $breakpoint, $padding, $width) {
+	$query : map-get($map: $breakpoints, $key: $breakpoint);
+
+	@media #{$query} {
+		padding-left: $padding;
+		padding-right: $padding;
+		max-width: $width;
+		width: 100%;
+		margin: 0 auto;
+	}
+}
+
+.container {
+	@include createContainer($breakpoints, xxs, 5%, 480px);
+	@include createContainer($breakpoints, xs, 7%, 768px);
+	@include createContainer($breakpoints, sm, 7%, 1024px);
+	@include createContainer($breakpoints, md, 7%, 1280px);
+	@include createContainer($breakpoints, lg, 7%, 1440px);
+	@include createContainer($breakpoints, hd, 7%, 1441px);
+}
+
 * {
   margin: 0;
   padding: 0;
