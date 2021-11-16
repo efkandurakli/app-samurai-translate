@@ -1,0 +1,17 @@
+$weight-class-slug: fw !default;
+
+@for $i from 1 through 9 {
+	$weight : $i * 100;
+
+	.#{$weight-class-slug}-#{$weight} {
+		font-weight: #{$weight};
+	}
+
+	[fw='#{$weight}'] {
+		font-weight: #{$weight};
+	}
+
+	.#{$weight-class-slug}-normal {
+		font-weight: normal;
+	}
+}

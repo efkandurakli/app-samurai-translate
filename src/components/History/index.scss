@@ -1,0 +1,59 @@
+@import "@styles/vars";
+
+.history {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 37%);
+  width: 25%;
+  margin-left: 50px;
+  height: 100vh;
+  overflow-y: scroll;
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px;
+
+    &--close {
+      text-align: center;
+      height: 30px;
+      width: 30px;
+      display: inline-block;
+      cursor: pointer;
+
+      &:hover {
+        background-color: red;
+        background-color: $wild-sand;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  &__item {
+    padding: 12px;
+
+    &:hover {
+      background-color: $black-haze;
+    }
+
+    &--title {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+.close-icon {
+  text-align: center;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $wild-sand;
+    border-radius: 50%;
+  }
+}

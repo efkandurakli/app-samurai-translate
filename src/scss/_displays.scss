@@ -8,6 +8,16 @@
 
 .disp-flex {
 	display: flex;
+
+	&__space-between {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&__center {
+		display: flex;
+		align-items: center;
+	}
 }
 
 .disp-flex-column {
