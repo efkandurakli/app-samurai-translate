@@ -76,10 +76,10 @@
 }
 
 .container {
-	@include createContainer($breakpoints, xxs, 5%, 480px);
-	@include createContainer($breakpoints, xs, 7%, 768px);
-	@include createContainer($breakpoints, sm, 7%, 1024px);
-	@include createContainer($breakpoints, md, 7%, 1280px);
+	@include createContainer($breakpoints, xxs, 0, 480px);
+	@include createContainer($breakpoints, xs, 0, 768px);
+	@include createContainer($breakpoints, sm, 3%, 1024px);
+	@include createContainer($breakpoints, md, 5%, 1280px);
 	@include createContainer($breakpoints, lg, 7%, 1440px);
 	@include createContainer($breakpoints, hd, 7%, 1441px);
 }
@@ -128,3 +128,4 @@ body {
 @import "displays";
 @import "cursors";
 @import 'width';
+@import 'floats';

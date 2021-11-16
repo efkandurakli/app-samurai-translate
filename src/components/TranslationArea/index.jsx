@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
 import swapIcon from "@svgs/swap.svg";
 import clearIcon from "@svgs/clear.svg";
+import copyIcon from "@svgs/copy.svg";
+import stopIcon from "@svgs/stop.svg";
 import microphoneIcon from "@svgs/microphone.svg";
 import { useLazyTranslate } from "react-google-translate";
 import "./index.scss";
-import { TextareaAutosize } from "../../../node_modules/react-autosize-textarea/lib/TextareaAutosize";
+import TextareaAutosize from 'react-autosize-textarea';
 import { setConfig } from "react-google-translate";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 setConfig({
-  clientEmail: process.env.REACT_APP_GCP_CLIENT_EMAIL ?? "",
-  privateKey: process.env.REACT_APP_GCP_PRIVATE_KEY ?? "",
-  projectId: process.env.REACT_APP_GCP_PROJECT_ID ?? "",
+  clientEmail: process.env.REACT_APP_GCP_CLIENT_EMAIL,
+  privateKey: process.env.REACT_APP_GCP_PRIVATE_KEY,
+  projectId: process.env.REACT_APP_GCP_PROJECT_ID,
 });
 
 const TranslationArea = () => {
@@ -21,6 +26,8 @@ const TranslationArea = () => {
 
   const [sourceText, setSourceText] = useState("");
   const [targetText, setTargetText] = useState("");
+
+  const [isMicrophoneAccepted, setIsMicrophoneAccepted] = useState(false);
 
   const LANGUAGES = [
     {
@@ -60,19 +67,58 @@ const TranslationArea = () => {
 
   const handleSourceTextChange = (text) => {
     setSourceText(text);
-    translate(text, targetLanguageCode);
   };
 
+  const {
+    transcript,
+    listening,
+    browserSupportsSpeechRecognition,
+    resetTranscript,
+  } = useSpeechRecognition();
+
+  const startListening = () =>
+    SpeechRecognition.startListening({ continuous: true });
+
+  const handleMicrophoneClick = () => {
+    if (listening) {
+      SpeechRecognition.stopListening();
+      resetTranscript();
+    } else {
+      setSourceText("");
+      startListening();
+    }
+  };
+
+  const getSourceValue = () => {
+    return sourceText || (listening && "Speak now") || "";
+  };
+
+  async function copyTextToClipboard(text) {
+    if ("clipboard" in navigator) {
+      return await navigator.clipboard.writeText(text);
+    } else {
+      return document.execCommand("copy", true, text);
+    }
+  }
+
   useEffect(() => {
-    if (data) {
+    if (listening) setSourceText(transcript);
+    translate(sourceText, targetLanguageCode);
+    if (data.length > 0) {
       setTargetText(data);
     } else {
       setTargetText("");
     }
-  }, [data, activeSourceLanguageId, activeTargetLanguageId]);
+  }, [
+    sourceText,
+    data,
+    activeSourceLanguageId,
+    activeTargetLanguageId,
+    transcript,
+  ]);
 
   return (
-    <div className='container'>
+    <div className="container">
       <div className="translation-area">
         <div className="tabs b-b-1 bc-alto">
           <div className="tabs__source-languages">
@@ -118,12 +164,15 @@ const TranslationArea = () => {
             style={{ alignItems: "baseline" }}
           >
             <TextareaAutosize
-              className="text-area w-100-p"
-              value={sourceText}
+              className={`text-area w-100-p ${
+                listening && !sourceText ? "color-shuttle-gray" : ""
+              }`}
+              value={getSourceValue()}
               rows={5}
+              readOnly={listening}
               onChange={(e) => handleSourceTextChange(e.target.value)}
             />
-            {sourceText && (
+            {sourceText && !listening && (
               <div
                 className="clear-icon p-r-2 cursor-pointer"
                 onClick={() => {
@@ -135,18 +184,35 @@ const TranslationArea = () => {
               </div>
             )}
           </div>
-          <div className="w-50-p">
+          <div className={`w-50-p ${targetText ? "bg-wild-sand" : ""}`}>
             <TextareaAutosize
-              className="text-area w-100-p"
-              value={targetText}
+              className={`text-area w-100-p ${
+                targetText ? "" : "color-shuttle-gray"
+              }`}
+              value={targetText || "Translation"}
               rows={5}
               readOnly
               onChange={(e) => setSourceText(e.target.value)}
             />
           </div>
         </div>
-        <div className="p-2">
-          <img src={microphoneIcon} />
+        <div className="disp-flex">
+          <div
+            className="p-2 w-50-p b-r-1 bc-alto cursor-pointer"
+            onClick={handleMicrophoneClick}
+          >
+            <img src={listening ? stopIcon : microphoneIcon} />
+          </div>
+          {targetText && (
+            <div
+              className={` ${
+                targetText ? "bg-wild-sand" : ""
+              } p-2 w-50-p b-r-1 bc-alto cursor-pointer`}
+              onClick={() => copyTextToClipboard(targetText)}
+            >
+              <img className="float-right" src={copyIcon} />
+            </div>
+          )}
         </div>
       </div>
     </div>
