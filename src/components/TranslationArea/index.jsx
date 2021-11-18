@@ -1,96 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import swapIcon from "@svgs/swap.svg";
 import clearIcon from "@svgs/clear.svg";
 import copyIcon from "@svgs/copy.svg";
 import stopIcon from "@svgs/stop.svg";
 import microphoneIcon from "@svgs/microphone.svg";
-import { useLazyTranslate } from "react-google-translate";
+import TextareaAutosize from "react-autosize-textarea";
+import { LANGUAGES } from "@utils/constants";
+import { setGoogleTranslateConfig } from "@utils/helpers";
+
 import "./index.scss";
-import TextareaAutosize from 'react-autosize-textarea';
-import { setConfig } from "react-google-translate";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
 
-setConfig({
-  clientEmail: process.env.REACT_APP_GCP_CLIENT_EMAIL,
-  privateKey: process.env.REACT_APP_GCP_PRIVATE_KEY,
-  projectId: process.env.REACT_APP_GCP_PROJECT_ID,
-});
+setGoogleTranslateConfig();
 
-const TranslationArea = () => {
-  const [activeSourceLanguageId, setActiveSourceLanguageId] =
-    useState("english");
-  const [activeTargetLanguageId, setActiveTargetLanguageId] =
-    useState("turkish");
-
-  const [sourceText, setSourceText] = useState("");
-  const [targetText, setTargetText] = useState("");
-
-  const [isMicrophoneAccepted, setIsMicrophoneAccepted] = useState(false);
-
-  const LANGUAGES = [
-    {
-      text: "ENGLISH",
-      id: "english",
-      iso: "en",
-    },
-    {
-      text: "TURKISH",
-      id: "turkish",
-      iso: "tr",
-    },
-  ];
-
-  const sourceLanguageCode = LANGUAGES.find(
-    (lang) => lang.id === activeSourceLanguageId
-  ).iso;
-  const targetLanguageCode = LANGUAGES.find(
-    (lang) => lang.id === activeTargetLanguageId
-  ).iso;
-
-  const [translate, { data, loading }] = useLazyTranslate({
-    language: sourceLanguageCode,
-  });
-
-  const handleSourceLanguageClick = (id) => {
-    setActiveSourceLanguageId(id);
-    const targetLanguageId = LANGUAGES.find((lang) => lang.id !== id).id;
-    setActiveTargetLanguageId(targetLanguageId);
-  };
-
-  const handleTargetLanguageClick = (id) => {
-    setActiveTargetLanguageId(id);
-    const sourceLanguageId = LANGUAGES.find((lang) => lang.id !== id).id;
-    setActiveSourceLanguageId(sourceLanguageId);
-  };
-
-  const handleSourceTextChange = (text) => {
-    setSourceText(text);
-  };
-
-  const {
-    transcript,
-    listening,
-    browserSupportsSpeechRecognition,
-    resetTranscript,
-  } = useSpeechRecognition();
-
-  const startListening = () =>
-    SpeechRecognition.startListening({ continuous: true });
-
-  const handleMicrophoneClick = () => {
-    if (listening) {
-      SpeechRecognition.stopListening();
-      resetTranscript();
-    } else {
-      setSourceText("");
-      startListening();
-    }
-  };
-
+const TranslationArea = ({
+  sourceText,
+  targetText,
+  sourceLanguage,
+  targetLanguage,
+  isListening,
+  onMicrophoneClick,
+  onSourceLanguageClick,
+  onTargetLanguageClick,
+  onSourceTextChange,
+  onClearIconClick,
+}) => {
   const getSourceValue = () => {
-    return sourceText || (listening && "Speak now") || "";
+    return sourceText || (isListening && "Speak now") || "";
   };
 
   async function copyTextToClipboard(text) {
@@ -101,36 +36,20 @@ const TranslationArea = () => {
     }
   }
 
-  useEffect(() => {
-    if (listening) setSourceText(transcript);
-    translate(sourceText, targetLanguageCode);
-    if (data.length > 0) {
-      setTargetText(data);
-    } else {
-      setTargetText("");
-    }
-  }, [
-    sourceText,
-    data,
-    activeSourceLanguageId,
-    activeTargetLanguageId,
-    transcript,
-  ]);
-
   return (
     <div className="container">
       <div className="translation-area">
         <div className="tabs b-b-1 bc-alto">
           <div className="tabs__source-languages">
             {LANGUAGES.map((language, index) => {
-              const isActive = activeSourceLanguageId === language.id;
+              const isActive = sourceLanguage.id === language.id;
               return (
                 <p
                   className={`language-title p-l-4 p-r-4 p-t-2 cursor-pointer ${
                     isActive ? "b-b-2 bc-fun-blue color-fun-blue" : ""
                   }`}
                   key={`${language.id}-${index}`}
-                  onClick={() => handleSourceLanguageClick(language.id)}
+                  onClick={() => onSourceLanguageClick(language)}
                 >
                   {language.text}
                 </p>
@@ -139,17 +58,17 @@ const TranslationArea = () => {
           </div>
 
           <div className="tabs__target-languages">
-            <img src={swapIcon} height="40px" width="40px" />
+            <img src={swapIcon} alt="swap icon" height="40px" width="40px" />
             <div className="disp-flex p-l-5">
               {LANGUAGES.reverse().map((language, index) => {
-                const isActive = activeTargetLanguageId === language.id;
+                const isActive = targetLanguage.id === language.id;
                 return (
                   <p
                     className={`language-title p-l-4 p-r-4 p-t-2 cursor-pointer ${
                       isActive ? "b-b-2 bc-fun-blue color-fun-blue" : ""
                     }`}
                     key={`${language.id}-${index}`}
-                    onClick={() => handleTargetLanguageClick(language.id)}
+                    onClick={() => onTargetLanguageClick(language)}
                   >
                     {language.text}
                   </p>
@@ -165,22 +84,19 @@ const TranslationArea = () => {
           >
             <TextareaAutosize
               className={`text-area w-100-p ${
-                listening && !sourceText ? "color-shuttle-gray" : ""
+                isListening && !sourceText ? "color-shuttle-gray" : ""
               }`}
               value={getSourceValue()}
               rows={5}
-              readOnly={listening}
-              onChange={(e) => handleSourceTextChange(e.target.value)}
+              readOnly={isListening}
+              onChange={(e) => onSourceTextChange(e.target.value)}
             />
-            {sourceText && !listening && (
+            {sourceText && !isListening && (
               <div
                 className="clear-icon p-r-2 cursor-pointer"
-                onClick={() => {
-                  setSourceText("");
-                  setTargetText("");
-                }}
+                onClick={onClearIconClick}
               >
-                <img src={clearIcon} />
+                <img src={clearIcon} alt="clear icon" />
               </div>
             )}
           </div>
@@ -192,16 +108,20 @@ const TranslationArea = () => {
               value={targetText || "Translation"}
               rows={5}
               readOnly
-              onChange={(e) => setSourceText(e.target.value)}
             />
           </div>
         </div>
         <div className="disp-flex">
           <div
             className="p-2 w-50-p b-r-1 bc-alto cursor-pointer"
-            onClick={handleMicrophoneClick}
+            onClick={onMicrophoneClick}
           >
-            <img src={listening ? stopIcon : microphoneIcon} />
+            {sourceLanguage.id !== "turkish" && (
+              <img
+                src={isListening ? stopIcon : microphoneIcon}
+                alt="microphone icon"
+              />
+            )}
           </div>
           {targetText && (
             <div
@@ -210,7 +130,7 @@ const TranslationArea = () => {
               } p-2 w-50-p b-r-1 bc-alto cursor-pointer`}
               onClick={() => copyTextToClipboard(targetText)}
             >
-              <img className="float-right" src={copyIcon} />
+              <img className="float-right" src={copyIcon} alt="copy icon" />
             </div>
           )}
         </div>
