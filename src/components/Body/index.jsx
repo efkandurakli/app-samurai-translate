@@ -69,7 +69,7 @@ const Body = () => {
 
   return (
     <div>
-      <div className="h-100-px b-b-1 bc-alto bg-alabaster" />
+      <div className="h-100-px b-b-1 bc-alto bg-black-haze" />
       <TranslationArea
         sourceText={sourceText}
         targetText={targetText}
