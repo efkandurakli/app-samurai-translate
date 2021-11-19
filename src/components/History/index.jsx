@@ -3,13 +3,13 @@ import closeIcon from "@svgs/clear.svg";
 import arrowRightIcon from "@svgs/arrow_right.svg";
 import "./index.scss";
 
-const History = ({ historyData }) => {
+const History = ({ historyData, onCloseClick }) => {
   return (
     <div className="history">
       <div className="history__title b-b-1 bc-alto">
         <h3 className="fs-28">History </h3>
         <div className="close-icon">
-          <img src={closeIcon} />
+          <img onClick={onCloseClick} src={closeIcon} />
         </div>
       </div>
       <div className="p-4 b-b-1 bc-alto">

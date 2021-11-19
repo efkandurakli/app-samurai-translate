@@ -1,0 +1,17 @@
+.App {
+  &__content {
+    &--show-history {
+      display: grid;
+      grid-template-columns: 5fr 2fr;
+    }
+  }
+
+  &__history-button {
+    margin-top: 50px;
+    text-align: center;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+}

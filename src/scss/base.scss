@@ -76,10 +76,10 @@
 .container {
 	@include createContainer($breakpoints, xxs, 0, 480px);
 	@include createContainer($breakpoints, xs, 0, 768px);
-	@include createContainer($breakpoints, sm, 3%, 1024px);
-	@include createContainer($breakpoints, md, 5%, 1280px);
-	@include createContainer($breakpoints, lg, 7%, 1440px);
-	@include createContainer($breakpoints, hd, 7%, 1441px);
+	@include createContainer($breakpoints, sm, 0%, 1024px);
+	@include createContainer($breakpoints, md, 0%, 1280px);
+	@include createContainer($breakpoints, lg, 3%, 1440px);
+	@include createContainer($breakpoints, hd, 6%, 1441px);
 }
 
 * {
