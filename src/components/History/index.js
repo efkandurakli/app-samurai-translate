@@ -17,8 +17,6 @@ const History = ({ onCloseClick }) => {
     });
   }, []);
 
-  console.log("History Data : ", historyData);
-  console.log("History Data Reverse : ", historyData.reverse())
 
   return (
     <div className="history">
@@ -40,7 +38,7 @@ const History = ({ onCloseClick }) => {
         </p>
       </div>
 
-      {historyData.reverse().map((dataItem, index) => {
+      {historyData.slice().reverse().map((dataItem, index) => {
         const addBorder = index < historyData.length - 1;
         return (
           <div

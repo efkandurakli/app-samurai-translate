@@ -62,7 +62,7 @@ const TranslationArea = ({
           </div>
           <div className="tabs__target-languages">
             <div className="disp-flex p-l-5">
-              {LANGUAGES.reverse().map((language, index) => {
+              {LANGUAGES.slice().reverse().map((language, index) => {
                 const isActive = targetLanguage.id === language.id;
                 return (
                   <p
