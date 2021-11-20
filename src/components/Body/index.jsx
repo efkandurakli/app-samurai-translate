@@ -21,8 +21,26 @@ const Body = () => {
     if (listening) {
       SpeechRecognition.stopListening();
     } else {
-      SpeechRecognition.startListening({ continuous: true });
-      resetTranscript();
+      checkPermissionsAndStartListening();
+    }
+  };
+
+  const checkPermissionsAndStartListening = () => {
+    if (!browserSupportsSpeechRecognition) {
+      alert("Your rowser doesn't support speech recognition.");
+    } else {
+      const permissions = navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: false,
+      });
+      permissions
+        .then(() => {
+          resetTranscript();
+          SpeechRecognition.startListening({ continuous: true });
+        })
+        .catch(() => {
+          alert("You need to accept permission to be able use microphone");
+        });
     }
   };
 
@@ -49,8 +67,8 @@ const Body = () => {
   const handleSwapIconClick = () => {
     const sourceLanguageTemp = sourceLanguage;
     setSourceLanguage(targetLanguage);
-    setTargetLanguage(sourceLanguageTemp)
-  }
+    setTargetLanguage(sourceLanguageTemp);
+  };
 
   const {
     transcript,
