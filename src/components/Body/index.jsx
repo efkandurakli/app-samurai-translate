@@ -39,7 +39,7 @@ const Body = () => {
           SpeechRecognition.startListening({ continuous: true });
         })
         .catch(() => {
-          alert("You need to accept permission to be able use microphone");
+          alert("You need to accept permission to be able to use microphone");
         });
     }
   };
