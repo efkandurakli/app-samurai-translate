@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import Header from "@components/Header";
 import Body from "@components/Body";
 import historyIcon from "@svgs/history.svg";
+import History from "@components/History/index";
+import { initDB } from "react-indexed-db";
+import { DBConfig } from '@utils/DBConfig';
 import "@styles/base.scss";
 import "./App.scss";
-import History from "@components/History/index";
+
+initDB(DBConfig);
 
 const HISTORY_DATA = [
   {
@@ -111,7 +115,7 @@ function App() {
             <p className='fs-14'>History</p>
           </div>
         </div>
-        {showHistory && <History historyData={HISTORY_DATA} onCloseClick={() => setShowHistory(false)} />}
+        {showHistory && <History onCloseClick={() => setShowHistory(false)} />}
       </div>
     </div>
   );

@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import closeIcon from "@svgs/clear.svg";
 import arrowRightIcon from "@svgs/arrow_right.svg";
 import arrowLeftIcon from "@svgs/arrow_left.svg";
+import { useIndexedDB } from "react-indexed-db";
+
 import "./index.scss";
 
-const History = ({ historyData, onCloseClick }) => {
+const History = ({ onCloseClick }) => {
+  const [historyData, setHistoryData] = useState([]);
+
+  const { getAll } = useIndexedDB("history");
+
+  useEffect(() => {
+    getAll().then((data) => {
+      setHistoryData(data);
+    });
+  }, []);
+
+  console.log("History Data : ", historyData);
+  console.log("History Data Reverse : ", historyData.reverse())
+
   return (
     <div className="history">
       <div className="history__title b-b-1 bc-alto">
@@ -25,7 +40,7 @@ const History = ({ historyData, onCloseClick }) => {
         </p>
       </div>
 
-      {historyData.map((dataItem, index) => {
+      {historyData.reverse().map((dataItem, index) => {
         const addBorder = index < historyData.length - 1;
         return (
           <div
@@ -34,9 +49,9 @@ const History = ({ historyData, onCloseClick }) => {
           >
             <div className="history__item--title">
               <div className="disp-flex__center">
-                <p>{dataItem.sourceLanguage}</p>
+                <p>{dataItem.sourceLanguage.text}</p>
                 <img src={arrowRightIcon} />
-                <p>{dataItem.targetLanguage}</p>
+                <p>{dataItem.targetLanguage.text}</p>
               </div>
               <div className="close-icon">
                 <img src={closeIcon} />

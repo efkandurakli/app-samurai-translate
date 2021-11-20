@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TranslationArea from "@components/TranslationArea";
 import { useLazyTranslate } from "react-google-translate";
+import { useIndexedDB } from "react-indexed-db";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -12,6 +13,8 @@ const Body = () => {
 
   const [sourceLanguage, setSourceLanguage] = useState(LANGUAGES[0]);
   const [targetLanguage, setTargetLanguage] = useState(LANGUAGES[1]);
+
+  const { add } = useIndexedDB("history");
 
   const [translate, { data }] = useLazyTranslate({
     language: sourceLanguage.iso,
@@ -80,11 +83,13 @@ const Body = () => {
   useEffect(() => {
     if (sourceText) translate(sourceText, targetLanguage.iso);
     else setTargetText("");
-  }, [sourceText]);
+  }, [sourceText, sourceLanguage]);
 
   useEffect(() => {
-    if (data && sourceText) setTargetText(data);
-    else setTargetText("");
+    if (data && sourceText) {
+      setTargetText(data);
+      // add({sourceLanguage, targetLanguage, sourceText, targetText})
+    } else setTargetText("");
   }, [sourceText, data]);
 
   useEffect(() => {
