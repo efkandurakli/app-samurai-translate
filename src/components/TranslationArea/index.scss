@@ -1,53 +1,89 @@
+@import "@styles/vars";
+
 .translation-area {
-    min-height: 225px;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
-    border-radius: 8px;
-    background-color: white;
-    margin-top: -35px;
-    resize: both;
+  min-height: 225px;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+  border-radius: 8px;
+  background-color: white;
+  margin-top: -35px;
+  resize: both;
 
-    .tabs {
-        height: 50px;
-        display: flex;
-        white-space: nowrap;
-        font-family: "Roboto",arial,sans-serif;
-        font-size: 20px;
-        color: #5f6368;
+  .tabs {
+    height: 50px;
+    display: flex;
+    white-space: nowrap;
+    font-family: "Roboto", arial, sans-serif;
+    font-size: 20px;
+    color: #5f6368;
 
-        &__source-languages {
-            display: flex;
-            width: 48%;
+    &__source-languages {
+      display: flex;
+      width: 50%;
 
-            .language-title {
-                &:hover {
-                    background-color: rgba($color: #f2f2f0, $alpha: 0.7);
-                }
-            }
+      @media (max-width: 768px) {
+        justify-content: center;
+      }
+
+      .language-title {
+        @media (max-width: 768px) {
+          display: none;
         }
 
-        &__target-languages {
-            display: flex;
-            width: 52%;
+        &--active {
+          color: $fun-blue;
 
-            .language-title {
-                &:hover {
-                    background-color: rgba($color: #f2f2f0, $alpha: 0.7);
-                }
-            }
+          @media (min-width: 768px) {
+            border-color: $fun-blue;
+            border-bottom-width: 2px;
+            border-bottom-style: solid;
+          }
         }
+
+        &:hover {
+          background-color: rgba($color: #f2f2f0, $alpha: 0.7);
+        }
+      }
     }
 
+    &__target-languages {
+      display: flex;
+      width: 50%;
+
+      @media (max-width: 768px) {
+        justify-content: center;
+      }
+
+      .language-title {
+        @media (max-width: 768px) {
+          display: none;
+        }
+
+        &--active {
+          color: $fun-blue;
+          @media (min-width: 768px) {
+            border-color: $fun-blue;
+            border-bottom-width: 2px;
+            border-bottom-style: solid;
+          }
+        }
+
+        &:hover {
+          background-color: rgba($color: #f2f2f0, $alpha: 0.7);
+        }
+      }
+    }
+  }
 }
 
 .text-area {
-    resize: none !important;
-    border: 0;
-    overflow: auto;
-    padding: 25px;
-    font-size: 24px;
-    line-height: 32px;
+  resize: none !important;
+  border: 0;
+  overflow: auto;
+  padding: 25px;
+  font-size: 24px;
+  line-height: 32px;
 
-    &:focus {
-        outline: none;
-    }
+  &:focus {
+    outline: none;
+  }
 }

@@ -2,14 +2,27 @@
   &__content {
     &--show-history {
       display: grid;
-      grid-template-columns: 5fr 2fr;
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 768px) {
+        grid-template-columns: 5fr 2fr;
+      }
+    }
+  }
+
+  &__body {
+    &--show-history {
+      @media (max-width: 768px) {
+        display: none;
+      }
     }
   }
 
   &__history-button {
     margin-top: 50px;
     text-align: center;
-
+    color: rgba(0,0,0, 0.54 );
     img {
       border-radius: 50%;
     }

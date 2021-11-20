@@ -23,6 +23,7 @@ const TranslationArea = ({
   onTargetLanguageClick,
   onSourceTextChange,
   onClearIconClick,
+  onSwapIconClick,
 }) => {
   const getSourceValue = () => {
     return sourceText || (isListening && "Speak now") || "";
@@ -45,9 +46,9 @@ const TranslationArea = ({
               const isActive = sourceLanguage.id === language.id;
               return (
                 <p
-                  className={`language-title p-l-4 p-r-4 p-t-2 cursor-pointer ${
-                    isActive ? "b-b-2 bc-fun-blue color-fun-blue" : ""
-                  }`}
+                  className={`language-title${
+                    isActive ? "--active" : ""
+                  } p-l-4 p-r-4 p-t-2 cursor-pointer`}
                   key={`${language.id}-${index}`}
                   onClick={() => onSourceLanguageClick(language)}
                 >
@@ -56,17 +57,18 @@ const TranslationArea = ({
               );
             })}
           </div>
-
-          <div className="tabs__target-languages">
+          <div className='cursor-pointer' onClick={onSwapIconClick}>
             <img src={swapIcon} alt="swap icon" height="40px" width="40px" />
+          </div>
+          <div className="tabs__target-languages">
             <div className="disp-flex p-l-5">
               {LANGUAGES.reverse().map((language, index) => {
                 const isActive = targetLanguage.id === language.id;
                 return (
                   <p
-                    className={`language-title p-l-4 p-r-4 p-t-2 cursor-pointer ${
-                      isActive ? "b-b-2 bc-fun-blue color-fun-blue" : ""
-                    }`}
+                    className={`language-title${
+                      isActive ? "--active" : ""
+                    } p-l-4 p-r-4 p-t-2 cursor-pointer`}
                     key={`${language.id}-${index}`}
                     onClick={() => onTargetLanguageClick(language)}
                   >
@@ -77,7 +79,7 @@ const TranslationArea = ({
             </div>
           </div>
         </div>
-        <div className="disp-flex" style={{ minHeight: "225px" }}>
+        <div className="disp-flex">
           <div
             className="w-50-p b-r-1 bc-alto disp-flex"
             style={{ alignItems: "baseline" }}

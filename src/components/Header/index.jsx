@@ -1,11 +1,11 @@
-import logo from "@images/logo.png";
+import React from "react";
 import "./index.scss";
 
-const Header = () => {
+const Header = ({ display }) => {
   return (
-    <header className="header b-b-1 bc-alto">
-      <img src={logo} alt="logo" height="100%" width="12%" />
-      <p className="fs-30 color-shuttle-gray p-l-2">Translate</p>
+    <header data-display={display} className="header b-b-1 bc-alto">
+      <p className="header__logo fs-56 color-navy-blue"> AppSamurai</p>
+      <p className="fs-30 color-shuttle-gray p-l-2 p-t-2">Translate</p>
     </header>
   );
 };

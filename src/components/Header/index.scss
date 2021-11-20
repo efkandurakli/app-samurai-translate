@@ -1,7 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Roboto:ital,wght@0,500;0,700;1,500;1,700&display=swap');
+
 .header {
-    height: 70px;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    padding: 10px;
+  height: 70px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+
+  @media (max-width: 768px) {
+    &[data-display="true"] {
+      display: none;
+    }
+  }
+
+  &__logo {
+    font-family: 'Courgette', cursive;
+  }
 }

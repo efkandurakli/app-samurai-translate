@@ -1,13 +1,20 @@
 import React from "react";
 import closeIcon from "@svgs/clear.svg";
 import arrowRightIcon from "@svgs/arrow_right.svg";
+import arrowLeftIcon from "@svgs/arrow_left.svg";
 import "./index.scss";
 
 const History = ({ historyData, onCloseClick }) => {
   return (
     <div className="history">
       <div className="history__title b-b-1 bc-alto">
-        <h3 className="fs-28">History </h3>
+        <div className="disp-flex">
+          <div className="arrow-left-icon" onClick={onCloseClick}>
+            <img src={arrowLeftIcon} alt="arrow left" />
+          </div>
+
+          <p className="fs-28">History </p>
+        </div>
         <div className="close-icon">
           <img onClick={onCloseClick} src={closeIcon} />
         </div>

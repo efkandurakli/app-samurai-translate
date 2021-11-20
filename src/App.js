@@ -98,9 +98,9 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header display={showHistory} />
       <div className={`App__content${showHistory ? "--show-history" : ""}`}>
-        <div>
+        <div className={`App__body${showHistory ? "--show-history" : ""}`}>
           <Body />
           <div className="App__history-button">
             <img
@@ -108,7 +108,7 @@ function App() {
               src={historyIcon}
               onClick={() => setShowHistory(!showHistory)}
             />
-            <p>History</p>
+            <p className='fs-14'>History</p>
           </div>
         </div>
         {showHistory && <History historyData={HISTORY_DATA} onCloseClick={() => setShowHistory(false)} />}

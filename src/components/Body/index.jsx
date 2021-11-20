@@ -46,6 +46,12 @@ const Body = () => {
     setSourceText("");
   };
 
+  const handleSwapIconClick = () => {
+    const sourceLanguageTemp = sourceLanguage;
+    setSourceLanguage(targetLanguage);
+    setTargetLanguage(sourceLanguageTemp)
+  }
+
   const {
     transcript,
     listening,
@@ -61,7 +67,7 @@ const Body = () => {
   useEffect(() => {
     if (data && sourceText) setTargetText(data);
     else setTargetText("");
-  }, [data]);
+  }, [sourceText, data]);
 
   useEffect(() => {
     setSourceText(transcript);
@@ -81,6 +87,7 @@ const Body = () => {
         onTargetLanguageClick={handleTargetLanguageClick}
         onSourceTextChange={handleSourceTextChange}
         onClearIconClick={handleClearIconClick}
+        onSwapIconClick={handleSwapIconClick}
       />
     </div>
   );

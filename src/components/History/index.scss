@@ -53,4 +53,17 @@
     background-color: $wild-sand;
     border-radius: 50%;
   }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.arrow-left-icon {
+  margin-right: 50px;
+  cursor: pointer;
+  text-align: center;
+  @media (min-width: 768px) {
+    display: none;
+  }
 }
