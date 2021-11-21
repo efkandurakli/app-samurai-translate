@@ -1,25 +1,44 @@
-# Getting Started with Create React App
+# App Samurai Translate App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple translation web application that makes translation between Turkish and English like Google Translate. This web app have been developed by using React as part of application process for Frontend Developer position in  [App Samurai Company.](https://appsamurai.com/)
 
-## Available Scripts
+
+## Environment variables
+
+Generate your credentials and project id in Google Cloud Platform. Read through the [documentation](https://cloud.google.com/iam/docs/creating-managing-service-accounts) for setting a service account.
+
+After you acquired your credentials and project id, create a file named `.env` at the root folder of project and add credentials to this file like below.
+
+```
+REACT_APP_GCP_CLIENT_EMAIL=[private_key]
+REACT_APP_GCP_PRIVATE_KEY=[client_email]
+REACT_APP_GCP_PROJECT_ID=[project_id]
+```
+
+## Install packages
+
+```
+npm install
+```
+
+## Run Application
+
+Runs the app in the development mode by running below command.\
+
+```
+npm run start
+```
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Other Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
+### `npm test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+### `npm build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -29,7 +48,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+### `npm eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
@@ -39,32 +58,11 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## TODO
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Currently, this web app doesn't support other browsers expect Google Chrome. Add other browser supports
+- Deploy the app to a cloud platform such as `heroku`, `netlify` etc.
+- Make UI more responsive
+- Support translation with glossary
+- Improve history functionality
+- Move history from IndexDB to SQL database
