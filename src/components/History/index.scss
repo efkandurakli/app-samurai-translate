@@ -41,7 +41,7 @@
   }
 }
 
-.close-icon {
+.history-close-icon {
   text-align: center;
   height: 30px;
   width: 30px;
@@ -55,6 +55,19 @@
 
   @media (max-width: 768px) {
     display: none;
+  }
+}
+
+.history-item-delete-icon {
+  text-align: center;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $wild-sand;
+    border-radius: 50%;
   }
 }
 

@@ -43,8 +43,8 @@ const History = ({ onCloseClick }) => {
 
           <p className="fs-28">History </p>
         </div>
-        <div className="close-icon">
-          <img onClick={onCloseClick} src={closeIcon} alt="close icon" />
+        <div className="history-close-icon" onClick={onCloseClick}>
+          <img src={closeIcon} alt="close icon" />
         </div>
       </div>
       <div className="p-4 b-b-1 bc-alto" onClick={handleClear}>
@@ -70,7 +70,7 @@ const History = ({ onCloseClick }) => {
                   <p>{dataItem.targetLanguage.text}</p>
                 </div>
                 <div
-                  className="close-icon"
+                  className="history-item-delete-icon"
                   onClick={() => handleDelete(dataItem)}
                 >
                   <img src={closeIcon} alt="close icon" />
