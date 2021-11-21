@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import TranslationArea from "@components/TranslationArea";
-import { useLazyTranslate } from "react-google-translate";
+import { useLazyTranslate } from "@utils/google-translate";
 import { useIndexedDB } from "react-indexed-db";
 import { debounce } from "lodash";
 import SpeechRecognition, {

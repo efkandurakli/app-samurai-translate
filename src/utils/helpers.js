@@ -1,4 +1,4 @@
-import { setConfig } from "react-google-translate";
+import { setConfig } from "@utils/google-translate";
 
 export const setGoogleTranslateConfig = () => {
     setConfig({
