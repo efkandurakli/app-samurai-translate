@@ -6,17 +6,22 @@ import { useIndexedDB } from "react-indexed-db";
 
 import "./index.scss";
 
-const History = ({ onCloseClick }) => {
+const History = ({ onCloseClick, onHistoryItemClick }) => {
   const [historyData, setHistoryData] = useState([]);
 
-  const { getAll } = useIndexedDB("history");
+  const { getAll, clear } = useIndexedDB("history");
+
+  const handleClear = () => {
+    clear().then(() => {
+      setHistoryData([]);
+    });
+  };
 
   useEffect(() => {
     getAll().then((data) => {
       setHistoryData(data);
     });
   }, []);
-
 
   return (
     <div className="history">
@@ -32,36 +37,40 @@ const History = ({ onCloseClick }) => {
           <img onClick={onCloseClick} src={closeIcon} />
         </div>
       </div>
-      <div className="p-4 b-b-1 bc-alto">
-        <p className="Google-Sans-Roboto fs-14 fw-5 color-fun-blue cursor-pointer float-right">
+      <div className="p-4 b-b-1 bc-alto" onClick={handleClear}>
+        <p className="fs-14 fw-5 color-fun-blue cursor-pointer float-right">
           Clear all history
         </p>
       </div>
 
-      {historyData.slice().reverse().map((dataItem, index) => {
-        const addBorder = index < historyData.length - 1;
-        return (
-          <div
-            key={`history-data-item-${index}`}
-            className={`history__item ${addBorder ? "b-b-1 bc-alto" : ""}`}
-          >
-            <div className="history__item--title">
-              <div className="disp-flex__center">
-                <p>{dataItem.sourceLanguage.text}</p>
-                <img src={arrowRightIcon} />
-                <p>{dataItem.targetLanguage.text}</p>
+      {historyData
+        .slice()
+        .reverse()
+        .map((dataItem, index) => {
+          const addBorder = index < historyData.length - 1;
+          return (
+            <div
+              key={`history-data-item-${index}`}
+              className={`history__item ${addBorder ? "b-b-1 bc-alto" : ""}`}
+              onClick={() => onHistoryItemClick(dataItem)}
+            >
+              <div className="history__item--title">
+                <div className="disp-flex__center">
+                  <p>{dataItem.sourceLanguage.text}</p>
+                  <img src={arrowRightIcon} />
+                  <p>{dataItem.targetLanguage.text}</p>
+                </div>
+                <div className="close-icon">
+                  <img src={closeIcon} />
+                </div>
               </div>
-              <div className="close-icon">
-                <img src={closeIcon} />
+              <div className="p-t-2">
+                <p>{dataItem.sourceText}</p>
+                <p className="color-shuttle-gray">{dataItem.targetText}</p>
               </div>
             </div>
-            <div className="p-t-2">
-              <p>{dataItem.sourceText}</p>
-              <p className="color-shuttle-gray">{dataItem.targetText}</p>
-            </div>
-          </div>
-        );
-      })}
+          );
+        })}
     </div>
   );
 };

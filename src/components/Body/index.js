@@ -1,15 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import TranslationArea from "@components/TranslationArea";
 import { useLazyTranslate } from "react-google-translate";
 import { useIndexedDB } from "react-indexed-db";
+import { debounce } from "lodash";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { LANGUAGES } from "@utils/constants";
 
-const Body = () => {
+const Body = ({ historyItem }) => {
   const [sourceText, setSourceText] = useState("");
-  const [targetText, setTargetText] = useState("");
+
+  const [searchedText, setSearchedText] = useState("");
+
+  const debouncedSearch = useCallback(
+    debounce((text) => {
+      setSearchedText(text);
+    }, 500),
+    []
+  );
+
+  const debouncedHistoryUpdate = useCallback(
+    debounce((sourceText, targetText, srcLang, trgtLang) => {
+      if (sourceText && targetText)
+        add({
+          sourceLanguage: srcLang,
+          targetLanguage: trgtLang,
+          sourceText,
+          targetText,
+        });
+    }, 2000),
+    []
+  );
 
   const [sourceLanguage, setSourceLanguage] = useState(LANGUAGES[0]);
   const [targetLanguage, setTargetLanguage] = useState(LANGUAGES[1]);
@@ -30,7 +52,7 @@ const Body = () => {
 
   const checkPermissionsAndStartListening = () => {
     if (!browserSupportsSpeechRecognition) {
-      alert("Your rowser doesn't support speech recognition.");
+      alert("Your browser doesn't support speech recognition.");
     } else {
       const permissions = navigator.mediaDevices.getUserMedia({
         audio: true,
@@ -81,27 +103,36 @@ const Body = () => {
   } = useSpeechRecognition();
 
   useEffect(() => {
-    if (sourceText) translate(sourceText, targetLanguage.iso);
-    else setTargetText("");
-  }, [sourceText, sourceLanguage]);
-
-  useEffect(() => {
-    if (data && sourceText) {
-      setTargetText(data);
-      // add({sourceLanguage, targetLanguage, sourceText, targetText})
-    } else setTargetText("");
-  }, [sourceText, data]);
-
-  useEffect(() => {
     setSourceText(transcript);
   }, [transcript]);
+
+  useEffect(() => {
+    if (sourceText) debouncedSearch(sourceText);
+    else setSearchedText("");
+  }, [sourceText]);
+
+  useEffect(() => {
+    debouncedHistoryUpdate(searchedText, data, sourceLanguage, targetLanguage);
+  }, [data]);
+
+  useEffect(() => {
+    translate(searchedText, targetLanguage.iso);
+  }, [searchedText, translate, sourceLanguage]);
+
+  useEffect(() => {
+    if (historyItem) {
+      setTargetLanguage(historyItem.targetLanguage);
+      setSourceLanguage(historyItem.sourceLanguage);
+      setSourceText(historyItem.sourceText);
+    }
+  }, [historyItem]);
 
   return (
     <div>
       <div className="h-100-px b-b-1 bc-alto bg-black-haze" />
       <TranslationArea
         sourceText={sourceText}
-        targetText={targetText}
+        targetText={searchedText ? data : ""}
         sourceLanguage={sourceLanguage}
         targetLanguage={targetLanguage}
         isListening={listening}
