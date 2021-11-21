@@ -39,7 +39,7 @@ const Body = () => {
   const { add } = useIndexedDB("history");
 
   const [translate, { data }] = useLazyTranslate({
-    language: sourceLanguage.iso,
+    language: targetLanguage.iso,
   });
 
   const handleMicrophoneClick = () => {
