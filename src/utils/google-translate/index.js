@@ -23,6 +23,8 @@ export const translateText = async (
     targetLanguage
   ) => {
     try {
+        console.log("Text : ", text)
+        console.log("target Language : ", targetLanguage)
       const [response] = await translate.translate(text, targetLanguage)
       console.log("Response : ", response);
       let result = response
