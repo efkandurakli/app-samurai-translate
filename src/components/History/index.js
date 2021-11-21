@@ -6,10 +6,20 @@ import { useIndexedDB } from "react-indexed-db";
 
 import "./index.scss";
 
-const History = ({ onCloseClick, onHistoryItemClick }) => {
+const History = ({ onCloseClick }) => {
   const [historyData, setHistoryData] = useState([]);
 
-  const { getAll, clear } = useIndexedDB("history");
+  const { getAll, deleteRecord, clear } = useIndexedDB("history");
+
+  const handleDelete = (deletedItem) => {
+    const tempArr = [...historyData];
+    const index = tempArr.indexOf(deletedItem);
+    if (index > -1) {
+      tempArr.splice(index, 1);
+      setHistoryData(tempArr);
+      deleteRecord(deletedItem.id);
+    }
+  };
 
   const handleClear = () => {
     clear().then(() => {
@@ -34,7 +44,7 @@ const History = ({ onCloseClick, onHistoryItemClick }) => {
           <p className="fs-28">History </p>
         </div>
         <div className="close-icon">
-          <img onClick={onCloseClick} src={closeIcon} />
+          <img onClick={onCloseClick} src={closeIcon} alt="close icon" />
         </div>
       </div>
       <div className="p-4 b-b-1 bc-alto" onClick={handleClear}>
@@ -52,16 +62,18 @@ const History = ({ onCloseClick, onHistoryItemClick }) => {
             <div
               key={`history-data-item-${index}`}
               className={`history__item ${addBorder ? "b-b-1 bc-alto" : ""}`}
-              onClick={() => onHistoryItemClick(dataItem)}
             >
               <div className="history__item--title">
                 <div className="disp-flex__center">
                   <p>{dataItem.sourceLanguage.text}</p>
-                  <img src={arrowRightIcon} />
+                  <img src={arrowRightIcon} alt="arrow right icon" />
                   <p>{dataItem.targetLanguage.text}</p>
                 </div>
-                <div className="close-icon">
-                  <img src={closeIcon} />
+                <div
+                  className="close-icon"
+                  onClick={() => handleDelete(dataItem)}
+                >
+                  <img src={closeIcon} alt="close icon" />
                 </div>
               </div>
               <div className="p-t-2">

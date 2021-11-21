@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import TranslationArea from "@components/TranslationArea";
-import { useLazyTranslate } from "@utils/google-translate";
+import { useLazyTranslate } from "react-google-translate";
 import { useIndexedDB } from "react-indexed-db";
 import { debounce } from "lodash";
 import SpeechRecognition, {
@@ -8,7 +8,7 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import { LANGUAGES } from "@utils/constants";
 
-const Body = ({ historyItem }) => {
+const Body = () => {
   const [sourceText, setSourceText] = useState("");
 
   const [searchedText, setSearchedText] = useState("");
@@ -16,20 +16,20 @@ const Body = ({ historyItem }) => {
   const debouncedSearch = useCallback(
     debounce((text) => {
       setSearchedText(text);
-    }, 500),
+    }, 1000),
     []
   );
 
   const debouncedHistoryUpdate = useCallback(
     debounce((sourceText, targetText, srcLang, trgtLang) => {
-      if (sourceText && targetText)
+      if (sourceText && targetText && sourceText.trim() && targetText.trim())
         add({
           sourceLanguage: srcLang,
           targetLanguage: trgtLang,
           sourceText,
           targetText,
         });
-    }, 2000),
+    }, 1000),
     []
   );
 
@@ -118,14 +118,6 @@ const Body = ({ historyItem }) => {
   useEffect(() => {
     translate(searchedText, targetLanguage.iso);
   }, [searchedText, translate, sourceLanguage]);
-
-  useEffect(() => {
-    if (historyItem) {
-      setTargetLanguage(historyItem.targetLanguage);
-      setSourceLanguage(historyItem.sourceLanguage);
-      setSourceText(historyItem.sourceText);
-    }
-  }, [historyItem]);
 
   return (
     <div>

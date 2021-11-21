@@ -12,33 +12,24 @@ initDB(DBConfig);
 
 function App() {
   const [showHistory, setShowHistory] = useState(false);
-  const [historyItem, setHistoryItem] = useState(null);
-
-  const handleHistoryItemClick = (historyItem) => {
-    setHistoryItem(historyItem);
-  };
 
   return (
     <div className="App">
       <Header display={showHistory} />
       <div className={`App__content${showHistory ? "--show-history" : ""}`}>
         <div className={`App__body${showHistory ? "--show-history" : ""}`}>
-          <Body historyItem={historyItem} />
+          <Body />
           <div className="App__history-button">
             <img
               className="b-2 bc-alto p-5 cursor-pointer"
               src={historyIcon}
+              alt="history icon"
               onClick={() => setShowHistory(!showHistory)}
             />
             <p className="fs-14">History</p>
           </div>
         </div>
-        {showHistory && (
-          <History
-            onCloseClick={() => setShowHistory(false)}
-            onHistoryItemClick={handleHistoryItemClick}
-          />
-        )}
+        {showHistory && <History onCloseClick={() => setShowHistory(false)} />}
       </div>
     </div>
   );
