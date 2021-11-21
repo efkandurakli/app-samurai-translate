@@ -24,6 +24,7 @@ export const translateText = async (
   ) => {
     try {
       const [response] = await translate.translate(text, targetLanguage)
+      console.log("Response : ", response);
       let result = response
       if (Array.isArray(response)) {
         result = response.map((val) =>
