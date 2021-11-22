@@ -1,6 +1,6 @@
 # App Samurai Translate App
 
-This is a simple translation web application that makes translation between Turkish and English like Google Translate. This web app have been developed by using React as part of application process for Frontend Developer position in  [App Samurai Company.](https://appsamurai.com/)
+This is a simple translation web application that makes translation between Turkish and English like Google Translate. This web app has been developed by using React as part of application process for Frontend Developer position in  [App Samurai Company.](https://appsamurai.com/)
 
 
 ## Environment variables
@@ -23,7 +23,8 @@ npm install
 
 ## Run Application
 
-Runs the app in the development mode by running below command.\
+Runs the app in the development mode by running below command.<br/>
+**NOTE**: Currently, it only works fine in Google Chrome Browser. 
 
 ```
 npm run start
