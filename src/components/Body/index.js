@@ -116,7 +116,10 @@ const Body = () => {
   }, [data]);
 
   useEffect(() => {
-    translate(searchedText, targetLanguage.iso);
+    translate(searchedText, {
+      from: sourceLanguage.iso,
+      to: targetLanguage.iso,
+    });
   }, [searchedText, translate, sourceLanguage]);
 
   return (
